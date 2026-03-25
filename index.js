@@ -9,10 +9,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 // Add middleware to process JSON request body
-app.use((req, res, next) => {
-  console.log(req.method, req.url);
-  next();
-});
+app.use(express.json())
 
 // Write an async startServer function that
 // - connects to MongoDB with your SRV string with a database called restaurant
@@ -81,7 +78,7 @@ app.get("/menu/value",async (req,res)=>{
 // The values for the menu item should come from the request body
 // Test this route from Postman (make public!) and make sure the user's item is in the DB
 
-app.post("/menu/test",async (req,res)=>{
+app.post("/menu/new",async (req,res)=>{
   const newItem= await new MenuItem({
     name:req.body.name,
     cost:req.body.cost,
