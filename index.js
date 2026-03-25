@@ -25,7 +25,7 @@ async function startServer(){
     console.log("Server is Starting")
   })
 }
-
+startServer()
   
 
 // Task 2: Define the schema + model for a menu item [2 pts]
@@ -73,12 +73,23 @@ app.get("/menu",async (req,res)=>{
 // Task 6: Define a GET route at /menu/value that returns only menu items that cost less than 5 [2 pts]
 
 app.get("/menu/value",async (req,res)=>{
-  const items = await MenuItem.find({cost:{$lt:5}})
+  const items = await MenuItem.find({cost:{$lte:5}})
   res.json(items)
 })
 
 // Task 7: Define a POST route at /menu/new that adds a new menu item [2 pts]
 // The values for the menu item should come from the request body
 // Test this route from Postman (make public!) and make sure the user's item is in the DB
+
+app.post("/menu/test",async (req,res)=>{
+  const newItem= await new MenuItem({
+    name:req.body.name,
+    cost:req.body.cost,
+    category:req.body.category,
+    inStock: req.body.inStock,
+  }).save()
+
+  res.json(newItem)
+})   
 
 
